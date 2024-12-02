@@ -13,7 +13,7 @@ class Settingspage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            //Box
+     
             Container(
               decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.1),

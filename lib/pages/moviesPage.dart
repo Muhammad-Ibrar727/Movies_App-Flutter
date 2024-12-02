@@ -5,7 +5,7 @@ class MovieGridPage extends StatelessWidget {
 
   final List<Map<String, String>> movies = [
     {
-      'image': 'images/img1.jpg', // Replace with actual image paths
+      'image': 'images/img1.jpg',
       'quality': 'HD',
     },
     {
@@ -25,7 +25,7 @@ class MovieGridPage extends StatelessWidget {
       'quality': 'HD',
     },
     {
-      'image': 'images/img7.jpg', // Replace with actual image paths
+      'image': 'images/img7.jpg',
       'quality': 'HD',
     },
     {
@@ -60,7 +60,6 @@ class MovieGridPage extends StatelessWidget {
       'image': 'images/img6.jpg',
       'quality': 'HD',
     },
-    // Add more images here...
   ];
 
   @override
@@ -74,15 +73,13 @@ class MovieGridPage extends StatelessWidget {
           ),
         ),
       ),
-      body: 
-      GridView.builder(
+      body: GridView.builder(
         padding: const EdgeInsets.all(8.0),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // Number of columns in the grid
-          crossAxisSpacing: 10.0, // Horizontal spacing between images
-          mainAxisSpacing: 10.0, // Vertical spacing between images
-          childAspectRatio:
-              0.75, // Aspect ratio of each grid item (width/height)
+          crossAxisCount: 3,
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 10.0,
+          childAspectRatio: 0.75,
         ),
         itemCount: movies.length,
         itemBuilder: (context, index) {
@@ -91,16 +88,14 @@ class MovieGridPage extends StatelessWidget {
           var quality = movie['quality']!;
 
           return ClipRRect(
-            borderRadius: BorderRadius.circular(8), // Rounded corners
+            borderRadius: BorderRadius.circular(8),
             child: Stack(
               fit: StackFit.expand,
               children: [
-                // Image
                 Image.asset(
                   image,
-                  fit: BoxFit.cover, // Fill the container
+                  fit: BoxFit.cover,
                 ),
-                // Overlay Text (HD or Cam)
                 Positioned(
                   top: 5,
                   left: 5,
@@ -127,7 +122,6 @@ class MovieGridPage extends StatelessWidget {
           );
         },
       ),
-    
     );
   }
 }

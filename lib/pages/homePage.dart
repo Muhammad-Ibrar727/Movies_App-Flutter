@@ -113,21 +113,26 @@ class _HomepageState extends State<Homepage> {
                   UpcommingMovies(),
 
                   // Trending Movies Section
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Trending Movies',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                         ),
-                        Text(
-                          'See All',
-                          style: TextStyle(fontSize: 12, color: Colors.amber),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'trendingMovies');
+                          },
+                          child: const Text(
+                            'See All',
+                            style: TextStyle(fontSize: 12, color: Colors.amber),
+                          ),
                         ),
                       ],
                     ),
@@ -135,19 +140,24 @@ class _HomepageState extends State<Homepage> {
                   Trendingmovies(),
 
                   // Other sections...
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Popular Movies',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'popularMovies');
+                          },
+                          child: const Text(
+                            'Popular Movies',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
-                        Text(
+                        const Text(
                           'See All',
                           style: TextStyle(fontSize: 12, color: Colors.amber),
                         ),

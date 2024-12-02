@@ -24,22 +24,6 @@ class SignupAndLogin extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // const SizedBox(
-              //   height: 10,
-              // ),
-
-              // CircleAvatar(
-              //   backgroundColor: Colors.grey.withOpacity(0.2),
-              //   child: Center(
-              //       child: InkWell(
-              //           onTap: () {
-              //             Navigator.popAndPushNamed(context, 'mainPage');
-              //             // Navigator.popReplacementNamed(context, 'homePage');
-              //             // Navigator.pop(context);
-              //           },
-              //           child: const Text('X'))),
-              // ),
-
               const SizedBox(
                 height: 20,
               ),

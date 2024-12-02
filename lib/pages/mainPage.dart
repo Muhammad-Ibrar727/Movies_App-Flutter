@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movies/pages/WatchList/watchList.dart';
 import 'package:movies/pages/favorite.dart';
 import 'package:movies/pages/homePage.dart';
 import 'package:movies/pages/moviesPage.dart';
 import 'package:movies/pages/settings/settingspage.dart';
+
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -36,7 +38,7 @@ class _MainPageState extends State<MainPage> {
           const Homepage(),
           MovieGridPage(),
           const Favorite(),
-          const Favorite(),
+          const Watchlist(),
           const Settingspage(),
         ],
       ),

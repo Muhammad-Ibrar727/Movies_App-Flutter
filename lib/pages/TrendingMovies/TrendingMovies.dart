@@ -5,7 +5,7 @@ class TrendingMovies extends StatelessWidget {
   TrendingMovies({super.key});
   final List<Map<String, String>> movies = [
     {
-      'image': 'images/img1.jpg', // Replace with actual image paths
+      'image': 'images/img1.jpg',
       'quality': 'HD',
     },
     {
@@ -25,7 +25,7 @@ class TrendingMovies extends StatelessWidget {
       'quality': 'HD',
     },
     {
-      'image': 'images/img7.jpg', // Replace with actual image paths
+      'image': 'images/img7.jpg',
       'quality': 'HD',
     },
     {
@@ -67,17 +67,16 @@ class TrendingMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Trending Movies'),
+        title: const Text('Trending Movies'),
       ),
       body: Expanded(
         child: GridView.builder(
           padding: const EdgeInsets.all(8.0),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // Number of columns in the grid
-            crossAxisSpacing: 10.0, // Horizontal spacing between images
-            mainAxisSpacing: 10.0, // Vertical spacing between images
-            childAspectRatio:
-                0.75, // Aspect ratio of each grid item (width/height)
+            crossAxisCount: 3,
+            crossAxisSpacing: 10.0,
+            mainAxisSpacing: 10.0,
+            childAspectRatio: 0.75,
           ),
           itemCount: movies.length,
           itemBuilder: (context, index) {
@@ -86,14 +85,13 @@ class TrendingMovies extends StatelessWidget {
             var quality = movie['quality']!;
 
             return ClipRRect(
-              borderRadius: BorderRadius.circular(8), // Rounded corners
+              borderRadius: BorderRadius.circular(8),
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  // Image
                   Image.asset(
                     image,
-                    fit: BoxFit.cover, // Fill the container
+                    fit: BoxFit.cover,
                   ),
                   // Overlay Text (HD or Cam)
                   Positioned(
@@ -123,28 +121,6 @@ class TrendingMovies extends StatelessWidget {
           },
         ),
       ),
-
-      // Padding(
-      //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-      //   child: Row(
-      //     mainAxisAlignment: MainAxisAlignment.start,
-      //     children: [
-      //       InkWell(
-      //         onTap: () {},
-      //         child: const Text(
-      //           'Day',
-      //           style: TextStyle(fontWeight: FontWeight.w500),
-      //         ),
-      //       ),
-      //       const SizedBox(
-      //         width: 20,
-      //       ),
-      //       const Text(
-      //         'Week',
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }
