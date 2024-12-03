@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movies/pages/LoginAndSignUp/SignupAndLogin.dart';
+import 'package:movies/pages/LoginAndSignUp/Login.dart';
+import 'package:movies/pages/LoginAndSignUp/SignUp.dart';
 import 'package:movies/pages/TrendingMovies/TrendingMovies.dart';
 import 'package:movies/pages/homePage.dart';
 import 'package:movies/pages/popularMovies/popularMovies.dart';
+import 'package:movies/pages/settings/widgets/contactUs.dart';
 
 import 'pages/mainPage.dart';
 
@@ -26,9 +28,12 @@ class MyApp extends StatelessWidget {
       routes: {
         'mainPage': (context) => const MainPage(),
         'homePage': (context) => const Homepage(),
-        'signupAndLogin': (context) => const SignupAndLogin(),
+        'signupAndLogin': (context) => const Login(),
         'trendingMovies': (context) => TrendingMovies(),
         'popularMovies': (context) => const PopularMovies(),
+        'signUp': (context) => const Signup(),
+        'logIn': (context) => Login(),
+        'contactUs':(context) => Contactus(),
       },
       home: const MainPage(),
     );

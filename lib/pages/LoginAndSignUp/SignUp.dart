@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SignupAndLogin extends StatelessWidget {
-  const SignupAndLogin({super.key});
+class Signup extends StatelessWidget {
+  const Signup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +11,15 @@ class SignupAndLogin extends StatelessWidget {
           radius: 20,
           backgroundColor: Colors.grey.withOpacity(0.1),
           child: Center(
-              child: InkWell(
-                  onTap: () {
-                    Navigator.popAndPushNamed(context, 'mainPage');
-                  },
-                  child: const Text('X'))),
+            child: InkWell(
+                onTap: () {
+                  Navigator.popAndPushNamed(context, 'logIn');
+                },
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  size: 20,
+                )),
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -43,7 +47,7 @@ class SignupAndLogin extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Welcome back',
+                        'Register',
                         style: TextStyle(
                             fontSize: 26, fontWeight: FontWeight.bold),
                       ),
@@ -51,7 +55,7 @@ class SignupAndLogin extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        'Hello there, Sign in to continue',
+                        'Create your new account',
                         style: TextStyle(fontSize: 15),
                       )
                     ],
@@ -61,6 +65,27 @@ class SignupAndLogin extends StatelessWidget {
                   ),
                   Column(
                     children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                            fillColor: Colors.transparent,
+                            filled: true,
+                            hintText: "Display name ",
+                            hintStyle:
+                                TextStyle(color: Colors.grey.withOpacity(0.2)),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.white.withOpacity(0.3),
+                                    width: 1),
+                                borderRadius: BorderRadius.circular(10)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.white.withOpacity(0.3),
+                                    width: 1),
+                                borderRadius: BorderRadius.circular(10))),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       TextFormField(
                         decoration: InputDecoration(
                             fillColor: Colors.transparent,
@@ -107,9 +132,30 @@ class SignupAndLogin extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [Text('Forgot password?')],
+                      TextFormField(
+                        decoration: InputDecoration(
+                            fillColor: Colors.transparent,
+                            filled: true,
+                            hintText: "Retype password",
+                            hintStyle:
+                                TextStyle(color: Colors.grey.withOpacity(0.2)),
+                            suffixIcon: Icon(
+                              Icons.remove_red_eye,
+                              color: Colors.grey.withOpacity(0.2),
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.white.withOpacity(0.3),
+                                    width: 1),
+                                borderRadius: BorderRadius.circular(10)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.white.withOpacity(0.3),
+                                    width: 1),
+                                borderRadius: BorderRadius.circular(10))),
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       const SizedBox(
                         height: 30,
@@ -122,7 +168,7 @@ class SignupAndLogin extends StatelessWidget {
                             color: Colors.amber),
                         child: const Center(
                             child: Text(
-                          'Login now',
+                          'Register Now',
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -147,7 +193,7 @@ class SignupAndLogin extends StatelessWidget {
                                 width: 36,
                               ),
                               Text(
-                                'Continue with google',
+                                'Register with google',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )
@@ -158,23 +204,22 @@ class SignupAndLogin extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      Column(
+                      const Row(
                         children: [
-                          Text(
-                            "Haven't signed up yet?",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey.withOpacity(0.6)),
+                          Flexible(
+                            child: Text(
+                              'By registering, you are agreeing to our Terms of use and Privacy Policy.',
+
+                              softWrap: true, // Ensures the text will wrap
+                              overflow:
+                                  TextOverflow.visible, // Prevents truncation
+                            ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            'Create account',
-                            style: TextStyle(fontSize: 15, color: Colors.amber),
-                          )
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                     ],
                   )
                 ],

@@ -25,7 +25,7 @@ class Settings extends StatelessWidget {
               ),
               Text(
                 '$nameOfSetting',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               )
             ],
           ),
@@ -71,7 +71,7 @@ class Settingswithfilledbg extends StatelessWidget {
                 ),
                 Text(
                   '$nameOfSetting',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 )
               ],
             ),

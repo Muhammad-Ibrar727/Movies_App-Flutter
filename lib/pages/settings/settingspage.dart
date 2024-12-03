@@ -13,7 +13,6 @@ class Settingspage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-     
             Container(
               decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.1),
@@ -73,7 +72,11 @@ class Settingspage extends StatelessWidget {
 
             Settings(icon: Icons.settings, nameOfSetting: 'General'),
             Settings(icon: Icons.edit, nameOfSetting: 'User interface'),
-            Settings(icon: Icons.email, nameOfSetting: 'Contact'),
+            InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, 'contactUs');
+                },
+                child: Settings(icon: Icons.email, nameOfSetting: 'Contact')),
             const SizedBox(
               height: 10,
             ),

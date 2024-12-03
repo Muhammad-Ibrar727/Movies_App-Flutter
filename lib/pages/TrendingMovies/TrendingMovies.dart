@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movies/pages/moviesPage.dart';
 
 class TrendingMovies extends StatelessWidget {
   TrendingMovies({super.key});
