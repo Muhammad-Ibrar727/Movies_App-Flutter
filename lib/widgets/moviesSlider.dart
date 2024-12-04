@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/modals/Genres_model.dart';
 import 'package:movies/modals/modal.dart';
+import 'package:movies/services/genre.dart';
 import 'package:movies/services/service.dart';
 
 class SwiperWithStaticButton extends StatefulWidget {
@@ -13,12 +15,17 @@ class SwiperWithStaticButton extends StatefulWidget {
 class _SwiperWithStaticButtonState extends State<SwiperWithStaticButton> {
   int _currentIndex = 0;
   // late Future<List<Movie>> nowPlaying;
-  Future<List<Movie>> nowPlaying = Future.value([]);
+  // Future<List<Movie>> nowPlaying = Future.value([]);
+  Future<List<Movie>> popularMovies = Future.value([]);
+
+  Future<List<Genre>> genres = Future.value([]);
 
   @override
   void initState() {
     super.initState();
-    nowPlaying = ApiServices().getNowPlaying();
+    genres = GenreServices().fetchGenres();
+    // nowPlaying = ApiServices().getNowPlaying();
+    popularMovies = ApiServices().getPopular();
   }
 
   @override
@@ -28,7 +35,7 @@ class _SwiperWithStaticButtonState extends State<SwiperWithStaticButton> {
         mainAxisSize: MainAxisSize.min,
         children: [
           FutureBuilder<List<Movie>>(
-            future: nowPlaying,
+            future: popularMovies,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return const Center(
@@ -36,7 +43,7 @@ class _SwiperWithStaticButtonState extends State<SwiperWithStaticButton> {
                 );
               }
 
-              final movies = snapshot.data ?? [];
+              final movies = snapshot.data!;
 
               // Handle case where no movies are available
               if (movies.isEmpty) {
@@ -52,10 +59,13 @@ class _SwiperWithStaticButtonState extends State<SwiperWithStaticButton> {
                 children: [
                   CarouselSlider.builder(
                     options: CarouselOptions(
-                      height: 300,
+                      height: MediaQuery.of(context).size.height * 0.37,
+                      // height: 340,
+                      // aspectRatio: 16 / 9,
+                      aspectRatio: 0.3,
                       autoPlay: true,
                       autoPlayInterval: const Duration(seconds: 3),
-                      viewportFraction: 0.5,
+                      viewportFraction: 0.6,
                       enlargeCenterPage: true,
                       onPageChanged: (index, reason) {
                         if (movies.isNotEmpty) {
@@ -69,13 +79,14 @@ class _SwiperWithStaticButtonState extends State<SwiperWithStaticButton> {
                     itemBuilder: (context, index, movieIndex) {
                       final movie = movies[index];
                       return Container(
-                        height: 350,
+                        height: 310,
+                        width: 210,
                         margin: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(0),
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(7),
+                          borderRadius: BorderRadius.circular(2),
                           child: Image.network(
                             'https://image.tmdb.org/t/p/original/${movie.backDropPath}',
                             fit: BoxFit.cover,
@@ -95,6 +106,40 @@ class _SwiperWithStaticButtonState extends State<SwiperWithStaticButton> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  // for genres
+                  FutureBuilder(
+                      future: genres,
+                      builder: (contex, snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        final allGenres = snapshot.data ?? [];
+
+                        final movieGenres = movies[_currentIndex]
+                            .genre_ids
+                            .map((id) => allGenres
+                                .firstWhere((genre) => genre.id == id,
+                                    orElse: () =>
+                                        Genre(id: id, name: 'Unknown'))
+                                .name)
+                            .toList();
+
+                        //for one genre from the list of ids [23,4,5]
+                        // final movieGenre = allGenres[_currentIndex].name;
+
+                        return Text(
+                            movieGenres
+                                .join(', '), // Join genre names with commas
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ));
+                      })
                 ],
               );
             },
@@ -114,7 +159,7 @@ class _SwiperWithStaticButtonState extends State<SwiperWithStaticButton> {
                 onTap: () {
                   // Static "Watch Now" functionality
                   final movie =
-                      nowPlaying.then((movies) => movies[_currentIndex]);
+                      popularMovies.then((movies) => movies[_currentIndex]);
                   movie.then((movie) {
                     print("Watching: ${movie.title}");
                   });
