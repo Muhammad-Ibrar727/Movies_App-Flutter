@@ -14,11 +14,16 @@ class ApiServices {
       "https://api.themoviedb.org/3/movie/popular?api_key=$api_key";
   final topRatedApi =
       "https://api.themoviedb.org/3/movie/top_rated?api_key=$api_key";
+  final latestTvSeriesApi =
+      "https://api.themoviedb.org/3/tv/popular?api_key=$api_key";
 
   //for the nowPlaying
   Future<List<Movie>> getNowPlaying() async {
     Uri url = Uri.parse(nowplaying);
     final response = await http.get(url);
+
+    //for checking the data from the api
+    // print('API Response (Movies): ${response.body}');
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['results'];
@@ -58,6 +63,19 @@ class ApiServices {
   }
 
   Future<List<Movie>> getTopRated() async {
+    Uri url = Uri.parse(topRatedApi);
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body)['results'];
+      List<Movie> movies = data.map((movie) => Movie.fromMap(movie)).toList();
+      return movies;
+    } else {
+      throw Exception('Failed to load');
+    }
+  }
+
+  Future<List<Movie>> getLatestTvSeries() async {
     Uri url = Uri.parse(topRatedApi);
     final response = await http.get(url);
 
