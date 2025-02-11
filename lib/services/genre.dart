@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:movies/modals/Genres_model.dart';
 
-const api_key = "84c27dd064f167db07cb40b110dfcf48";
+const api_key = "Enter your api key";
 
 class GenreServices {
   final String genreEndpoint =

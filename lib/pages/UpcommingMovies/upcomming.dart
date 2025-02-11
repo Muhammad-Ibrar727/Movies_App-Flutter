@@ -3,19 +3,18 @@ import 'package:movies/modals/modal.dart';
 import 'package:movies/pages/MovieDetail/detail.dart';
 import 'package:movies/services/service.dart';
 
-class Popularmovies extends StatefulWidget {
-  const Popularmovies({super.key});
+class UpcommingMovies extends StatefulWidget {
+  const UpcommingMovies({super.key});
 
   @override
-  State<Popularmovies> createState() => _PopularmoviesState();
+  State<UpcommingMovies> createState() => _UpcommingMoviesState();
 }
 
-class _PopularmoviesState extends State<Popularmovies> {
-  late Future<List<Movie>> popularMovies;
-
+class _UpcommingMoviesState extends State<UpcommingMovies> {
+  late Future<List<Movie>> upComing = Future.value([]);
   @override
   void initState() {
-    popularMovies = ApiServices().getPopular();
+    upComing = ApiServices().getUpcoming();
     super.initState();
   }
 
@@ -24,20 +23,23 @@ class _PopularmoviesState extends State<Popularmovies> {
     return SizedBox(
         height: 220,
         child: FutureBuilder(
-            future: popularMovies,
+            future: upComing,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
+
+              //List of movies and other details
               final movies = snapshot.data!;
               return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: movies.length,
                 itemBuilder: (context, index) {
+                  //fetching the one movie
                   // var movie = movies[index];
-                  //for reverse order
                   var movie = movies[movies.length - 1 - index];
-
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -50,10 +52,10 @@ class _PopularmoviesState extends State<Popularmovies> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => MovieDetail(
-                                        movieId: movie.id, type: "movie")));
+                                        movieId: movie.id, type: 'movie')));
                           },
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(8),
                             child: SizedBox(
                               height: 150,
                               width: 100,

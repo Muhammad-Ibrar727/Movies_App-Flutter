@@ -3,19 +3,19 @@ import 'package:movies/modals/modal.dart';
 import 'package:movies/pages/MovieDetail/detail.dart';
 import 'package:movies/services/service.dart';
 
-class Popularmovies extends StatefulWidget {
-  const Popularmovies({super.key});
+class Latesttvseries extends StatefulWidget {
+  const Latesttvseries({super.key});
 
   @override
-  State<Popularmovies> createState() => _PopularmoviesState();
+  State<Latesttvseries> createState() => _LatesttvseriesState();
 }
 
-class _PopularmoviesState extends State<Popularmovies> {
-  late Future<List<Movie>> popularMovies;
+class _LatesttvseriesState extends State<Latesttvseries> {
+  late Future<List<Movie>> latestTvSeries;
 
   @override
   void initState() {
-    popularMovies = ApiServices().getPopular();
+    latestTvSeries = ApiServices().getLatestTvSeries();
     super.initState();
   }
 
@@ -24,20 +24,19 @@ class _PopularmoviesState extends State<Popularmovies> {
     return SizedBox(
         height: 220,
         child: FutureBuilder(
-            future: popularMovies,
+            future: latestTvSeries,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
               final movies = snapshot.data!;
               return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: movies.length,
                 itemBuilder: (context, index) {
-                  // var movie = movies[index];
-                  //for reverse order
                   var movie = movies[movies.length - 1 - index];
-
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -53,13 +52,18 @@ class _PopularmoviesState extends State<Popularmovies> {
                                         movieId: movie.id, type: "movie")));
                           },
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(8),
                             child: SizedBox(
                               height: 150,
                               width: 100,
-                              child: Image.network(
-                                'https://image.tmdb.org/t/p/original/${movie.poster_path}',
-                                fit: BoxFit.cover,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(7),
+                                child: Image.network(
+                                  'https://image.tmdb.org/t/p/original/${movie.poster_path}',
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const Icon(Icons.broken_image),
+                                ),
                               ),
                             ),
                           ),
@@ -69,10 +73,12 @@ class _PopularmoviesState extends State<Popularmovies> {
                         ),
                         SizedBox(
                           width: 100,
-                          child: Text(
-                            movie.title,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                          child: Center(
+                            child: Text(
+                              movie.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         )
                       ],

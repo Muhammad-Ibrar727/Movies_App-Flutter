@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movies/widgets/latestTVSeries.dart';
+import 'package:movies/pages/TvSeries/allTvSeries.dart';
+import 'package:movies/pages/TvSeries/latestTVSeries.dart';
+import 'package:movies/pages/searchScreen/searchScreen.dart';
 import 'package:movies/widgets/moviesSlider.dart';
-import 'package:movies/widgets/popularMovies.dart';
-import 'package:movies/widgets/trendingMovies.dart';
-import 'package:movies/widgets/upcomming.dart';
+import 'package:movies/pages/popularMovies/popularMovies.dart';
+import 'package:movies/pages/TopRatedMovies/topRated.dart';
+import 'package:movies/pages/UpcommingMovies/upcomming.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -22,18 +24,46 @@ class _HomepageState extends State<Homepage> {
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Row(
             children: [
-              CircleAvatar(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                radius: 20,
-                child: const Icon(Icons.theater_comedy),
+              const CircleAvatar(
+                backgroundImage: AssetImage('images/appLogo.jpg'),
+                radius: 14,
               ),
               const SizedBox(width: 12),
-              const Text('MyMovies'),
+              // Text(
+              //   'MoviGo',
+              //   style: TextStyle(fontSize: 17, letterSpacing: 2),
+              // ),
+              RichText(
+                text: const TextSpan(
+                  style: TextStyle(
+                    fontFamily: 'BankGothic',
+                    fontSize: 23   ,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'Movi',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      text: 'Go',
+                      style: TextStyle(color: Colors.yellow),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
         actions: [
-          const Icon(Icons.search),
+          InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Searchscreen(type: 'movie')));
+              },
+              child: const Icon(Icons.search)),
           const SizedBox(width: 10),
           Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -48,7 +78,7 @@ class _HomepageState extends State<Homepage> {
       ),
       body: Column(
         children: [
-          // Static "Trending" and "Popular" section
+          // "Trending" and "Popular" section
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
             child: Row(
@@ -68,7 +98,7 @@ class _HomepageState extends State<Homepage> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, 'popularMovies');
+                    Navigator.pushNamed(context, '');
                   },
                   child: const Text(
                     'Popular',
@@ -84,42 +114,21 @@ class _HomepageState extends State<Homepage> {
               child: Column(
                 children: [
                   const SizedBox(height: 10),
-                  const SwiperWithStaticButton(),
+
+                  //movies slider or carousal
+                  const MoviesSlider(),
 
                   // Upcoming Movies Section
                   const SizedBox(height: 20),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 10,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Upcoming Movies',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          'See All',
-                          style: TextStyle(fontSize: 12, color: Colors.amber),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  UpcommingMovies(),
-
-                  // Trending Movies Section
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
                         const Text(
-                          'Trending Movies',
+                          'Upcoming Movies',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -127,7 +136,7 @@ class _HomepageState extends State<Homepage> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, 'trendingMovies');
+                            Navigator.pushNamed(context, 'allUpcommingMovies');
                           },
                           child: const Text(
                             'See All',
@@ -137,9 +146,37 @@ class _HomepageState extends State<Homepage> {
                       ],
                     ),
                   ),
-                  Trendingmovies(),
 
-                  // Other sections...
+                  const UpcommingMovies(),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Top Rated Movies',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'allTopRatedMovies');
+                          },
+                          child: const Text(
+                            'See All',
+                            style: TextStyle(fontSize: 12, color: Colors.amber),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const TopRated(),
+
+                  // popular
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
@@ -157,35 +194,48 @@ class _HomepageState extends State<Homepage> {
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        const Text(
-                          'See All',
-                          style: TextStyle(fontSize: 12, color: Colors.amber),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'allPopularMovies');
+                          },
+                          child: const Text(
+                            'See All',
+                            style: TextStyle(fontSize: 12, color: Colors.amber),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  Popularmovies(),
+                  const Popularmovies(),
 
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Latest TV Series',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                         ),
-                        Text(
-                          'See All',
-                          style: TextStyle(fontSize: 12, color: Colors.amber),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Alltvseries()));
+                          },
+                          child: const Text(
+                            'See All',
+                            style: TextStyle(fontSize: 12, color: Colors.amber),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  Latesttvseries(),
+                  const Latesttvseries(),
                 ],
               ),
             ),

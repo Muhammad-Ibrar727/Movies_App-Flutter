@@ -7,7 +7,7 @@ class Contactus extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Contact'),
+          title: const Text('Contact'),
         ),
         body: Column(
           children: [

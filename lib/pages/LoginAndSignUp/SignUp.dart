@@ -38,7 +38,7 @@ class Signup extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 30,
-                    child: Center(child: Text('Logo')),
+                    backgroundImage: AssetImage('images/appLogo.jpg'),
                   ),
                   const SizedBox(
                     height: 30,
@@ -83,7 +83,7 @@ class Signup extends StatelessWidget {
                                     width: 1),
                                 borderRadius: BorderRadius.circular(10))),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -217,7 +217,7 @@ class Signup extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                     ],

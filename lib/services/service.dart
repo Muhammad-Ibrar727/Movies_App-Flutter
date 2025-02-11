@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:movies/modals/modal.dart';
 
-const api_key = "84c27dd064f167db07cb40b110dfcf48";
+const api_key = "Enter your api key";
 
 class ApiServices {
   final nowplaying =
@@ -14,8 +14,10 @@ class ApiServices {
       "https://api.themoviedb.org/3/movie/popular?api_key=$api_key";
   final topRatedApi =
       "https://api.themoviedb.org/3/movie/top_rated?api_key=$api_key";
+  final sliderApi =
+      "https://api.themoviedb.org/3/movie/top_rated?api_key=$api_key&page=3";
   final latestTvSeriesApi =
-      "https://api.themoviedb.org/3/tv/popular?api_key=$api_key";
+      "https://api.themoviedb.org/3/movie/top_rated?api_key=$api_key";
 
   //for the nowPlaying
   Future<List<Movie>> getNowPlaying() async {
@@ -27,7 +29,11 @@ class ApiServices {
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['results'];
-      List<Movie> movies = data.map((movie) => Movie.fromMap(movie)).toList();
+      List<Movie> movies = data
+          .map((movie) => Movie.fromMap(movie))
+          .where((movie) => !movie.adult)
+          .toList();
+      print(movies);
       return movies;
     } else {
       throw Exception('Failed to load');
@@ -41,7 +47,10 @@ class ApiServices {
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['results'];
-      List<Movie> movies = data.map((movie) => Movie.fromMap(movie)).toList();
+      List<Movie> movies = data
+          .map((movie) => Movie.fromMap(movie))
+          .where((movie) => !movie.adult)
+          .toList();
       return movies;
     } else {
       throw Exception('Failed to load');
@@ -55,7 +64,10 @@ class ApiServices {
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['results'];
-      List<Movie> movies = data.map((movie) => Movie.fromMap(movie)).toList();
+      List<Movie> movies = data
+          .map((movie) => Movie.fromMap(movie))
+          .where((movie) => !movie.adult)
+          .toList();
       return movies;
     } else {
       throw Exception('Failed to load');
@@ -68,7 +80,10 @@ class ApiServices {
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['results'];
-      List<Movie> movies = data.map((movie) => Movie.fromMap(movie)).toList();
+      List<Movie> movies = data
+          .map((movie) => Movie.fromMap(movie))
+          .where((movie) => !movie.adult)
+          .toList();
       return movies;
     } else {
       throw Exception('Failed to load');
@@ -76,15 +91,50 @@ class ApiServices {
   }
 
   Future<List<Movie>> getLatestTvSeries() async {
-    Uri url = Uri.parse(topRatedApi);
+    Uri url = Uri.parse(latestTvSeriesApi);
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['results'];
-      List<Movie> movies = data.map((movie) => Movie.fromMap(movie)).toList();
+      List<Movie> movies = data
+          .map((movie) => Movie.fromMap(movie))
+          .where((movie) => !movie.adult)
+          .toList();
       return movies;
     } else {
       throw Exception('Failed to load');
     }
+  }
+
+  Future<List<Movie>> getMoviesForSlider(int page) async {
+    Uri url = Uri.parse(
+        "https://api.themoviedb.org/3/movie/popular?api_key=$api_key&page=$page");
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body)['results'];
+      List<Movie> movies = data
+          .map((movie) => Movie.fromMap(movie))
+          .where(
+              (movie) => !movie.adult) // Filter out movies with adult content
+          .toList();
+      return movies;
+    } else {
+      throw Exception('Failed to load movies');
+    }
+  }
+}
+
+class movies {
+  final String title;
+  final bool adult;
+
+  movies({required this.title, required this.adult});
+
+  factory movies.fromMap(Map<String, dynamic> map) {
+    return movies(
+      title: map['title'] ?? 'Untitled',
+      adult: map['adult'] ?? false, // Ensure this field exists
+    );
   }
 }

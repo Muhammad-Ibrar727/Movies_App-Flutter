@@ -3,19 +3,19 @@ import 'package:movies/modals/modal.dart';
 import 'package:movies/pages/MovieDetail/detail.dart';
 import 'package:movies/services/service.dart';
 
-class Popularmovies extends StatefulWidget {
-  const Popularmovies({super.key});
+class TopRated extends StatefulWidget {
+  const TopRated({super.key});
 
   @override
-  State<Popularmovies> createState() => _PopularmoviesState();
+  State<TopRated> createState() => _TopRatedState();
 }
 
-class _PopularmoviesState extends State<Popularmovies> {
-  late Future<List<Movie>> popularMovies;
+class _TopRatedState extends State<TopRated> {
+  late Future<List<Movie>> topRated;
 
   @override
   void initState() {
-    popularMovies = ApiServices().getPopular();
+    topRated = ApiServices().getTopRated();
     super.initState();
   }
 
@@ -24,19 +24,20 @@ class _PopularmoviesState extends State<Popularmovies> {
     return SizedBox(
         height: 220,
         child: FutureBuilder(
-            future: popularMovies,
+            future: topRated,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
+
               final movies = snapshot.data!;
               return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: movies.length,
                 itemBuilder: (context, index) {
-                  // var movie = movies[index];
-                  //for reverse order
-                  var movie = movies[movies.length - 1 - index];
+                  var movie = movies[index];
 
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -53,7 +54,7 @@ class _PopularmoviesState extends State<Popularmovies> {
                                         movieId: movie.id, type: "movie")));
                           },
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(8),
                             child: SizedBox(
                               height: 150,
                               width: 100,

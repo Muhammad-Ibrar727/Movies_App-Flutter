@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   carousel_slider: 5.0.0
   flutter_card_swiper: ^2.0.4
+  http: ^1.2.2
+  youtube_player_flutter: ^8.1.1
+  
   
 
 dev_dependencies:
@@ -78,10 +81,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: BankGothic
+      fonts:
+        - asset: assets/fonts/bankgothic/BankGothicBold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

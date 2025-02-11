@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movies/pages/LoginAndSignUp/SignUp.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -16,7 +15,7 @@ class Login extends StatelessWidget {
                   onTap: () {
                     Navigator.popAndPushNamed(context, 'mainPage');
                   },
-                  child: Icon(Icons.close_rounded))),
+                  child: const Icon(Icons.close_rounded))),
         ),
       ),
       body: SingleChildScrollView(
@@ -33,9 +32,9 @@ class Login extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
+                 const CircleAvatar(
                     radius: 30,
-                    child: Center(child: Text('Logo')),
+                    backgroundImage: AssetImage('images/appLogo.jpg'),
                   ),
                   const SizedBox(
                     height: 30,
