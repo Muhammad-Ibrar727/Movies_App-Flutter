@@ -4,17 +4,20 @@ This is a project for a Movies App built using **Flutter**. The app provides a s
 
 ---
 
-## Features (UI Only) ✨
+## Features✨
 - **Movie Listings**: Displays static posters and titles.
-- **Search Bar (Static)**: Placeholder for future functionality.
+- **Search Bar **: Placeholder for future functionality.
 - **Responsive Design**: Adapts to various screen sizes and orientations.
-
----
+- *All Tv Series ***: search and watch the all tv series.
+  
 
 ## Tech Stack 🛠️
 - **Framework**: [Flutter](https://flutter.dev/)  
 - **Language**: Dart  
 - **IDE**: Recommended - [Android Studio](https://developer.android.com/studio) or [VS Code](https://code.visualstudio.com/)
+
+  ## API
+  - **The Movie Database**: Data is fetched using the api of tmdb
 
 ---
 
